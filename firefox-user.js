@@ -1,0 +1,19 @@
+// Mozilla User Preferences
+user_pref("app.normandy.first_run", false);
+user_pref("browser.bookmarks.restore_default_bookmarks", false);
+user_pref("browser.contentblocking.introCount", 20);
+user_pref("browser.ctrlTab.recentlyUsedOrder", false);
+user_pref("browser.download.panel.shown", true);
+user_pref("browser.privacy.trackingprotection.menu", "always");
+user_pref("browser.urlbar.placeholderName", "DuckDuckGo");
+user_pref("datareporting.policy.dataSubmissionPolicyAcceptedVersion", 2);
+user_pref("devtools.onboarding.telemetry.logged", true);
+user_pref("network.cookie.cookieBehavior", 1);
+user_pref("network.dns.disablePrefetch", false);
+user_pref("network.http.speculative-parallel-limit", 0);
+user_pref("network.predictor.cleaned-up", true);
+user_pref("network.predictor.enabled", true);
+user_pref("network.prefetch-next", true);
+user_pref("plugin.disable_full_page_plugin_for_types", "");
+user_pref("privacy.donottrackheader.enabled", true);
+user_pref("privacy.trackingprotection.enabled", true);
