@@ -7,7 +7,7 @@ Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
 
 # install basic tools & apps
-scoop install 7z git  # needed for buckets
+scoop install 7zip git  # needed for buckets
 scoop bucket add extras
 scoop install notepad2-mod firefox
 
