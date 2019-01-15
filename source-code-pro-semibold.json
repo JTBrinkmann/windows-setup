@@ -1,0 +1,8 @@
+{
+	"font_face":      "Source Code Pro Semibold",
+	"font_true_type": true,
+	"font_size":      "0x18",
+	"font_weight":    400,
+
+	"load_console_IME":  true
+}

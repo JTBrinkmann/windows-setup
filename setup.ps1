@@ -1,21 +1,33 @@
+echo "This script requires Powershell 5.1"
+echo "currently running $($PSVersionTable.PSVersion)"
+
+# fix downloading over HTTPS
+[Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
+$net = (New-Object System.Net.WebClient)
+
 # configure taskbar
-reg.exe import .\TaskbandCU.reg
+reg.exe import .\taskbar.reg
 kill -ProcessName explorer -Force
 
 # set up scoop
-Set-ExecutionPolicy RemoteSigned -scope CurrentUser
-iex (new-object net.webclient).downloadstring('https://get.scoop.sh')
+Set-ExecutionPolicy Bypass -scope CurrentUser
+iex $net.downloadstring('https://get.scoop.sh')
 
 # install basic tools & apps
-scoop install 7zip git  # needed for buckets
+scoop install 7z git  # needed for buckets
 scoop bucket add extras
 scoop install notepad2-mod firefox
 
+# install SourceCode Pro
+iwr "https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip" -O font.zip
+7z e .\font.zip -ofont
+.\install-fonts.ps1 ".\font\"
+rm font.zip
+
 # style powershell
-scoop bucket add nerd-fonts
-scoop install pshazz concfg SourceCodePro-NF
+scoop install pshazz concfg # SourceCodePro-NF
 concfg clean
-concfg import -n solarized-dark .\sourcecode-pro.json
+concfg import -n solarized-dark .\source-code-pro-semibold.json
 concfg tokencolor disable
 
 $pshazzdir = "$((get-item (pshazz which default)).DirectoryName)\.."
