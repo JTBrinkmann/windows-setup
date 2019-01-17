@@ -8,26 +8,27 @@ Set-ExecutionPolicy Bypass -scope CurrentUser
 $net = (New-Object System.Net.WebClient)
 
 # configure taskbar
-reg.exe import .\taskbar.reg
+sudo reg import .\taskbar.reg
 kill -ProcessName explorer -Force
 
 # install basic tools & apps
-scoop install git  # needed for buckets
+scoop install 7z git  # needed for buckets
 scoop bucket add extras
-scoop install notepad2-mod firefox
+scoop install notepad2-mod firefox pshazz concfg
 
 # replace notepad with notepad2-mod
-reg add "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe" /v "Debugger" /t REG_SZ /d "`"$((gcm notepad2.exe).Path)`" /z" /f
+$notepad2_path = join-path (gcm notepad2.ps1 | gi).DirectoryName "..\apps\notepad2-mod\current\Notepad2.exe"
+$notepad_reg_key = "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe"
+sudo reg add $notepad_reg_key /v "Debugger" /t REG_SZ /d "`"$notepad2_path`" /z" /f
 
 # install SourceCode Pro (SauceCode-Pro-NF via scoop-nerd-fonts can't be applied to console)
 iwr "https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip" -O font.zip
 7z e .\font.zip -ofont
-.\install-fonts.ps1 ".\font\"
-rm font.zip
+sudo .\install-fonts.ps1 ".\font\"
+#rm font.zip
 
 # style powershell
-## theme
-scoop install pshazz concfg
+## use concfg to set the color scheme to use solarized-dark with Source-Code Pro font and long backlog
 concfg clean
 concfg import -n solarized-dark .\source-code-pro-semibold.json
 concfg tokencolor disable
@@ -37,8 +38,9 @@ concfg tokencolor disable
 $pshazzdir = "$((get-item (pshazz which default)).DirectoryName)\.."
 copy .\prompt_pwd.ps1 $pshazzdir\plugins\
 
-## pshazz (prompt) theme
-## we modify xpander to use prompt_pwd and not use ssh and hg (to speed up profile loading time)
+
+## customize prompt (use xpander but with prompt_pwd and start command in next line)
+## (also remove plugins for hg and ssh for faster loadtime)
 (cat "$pshazzdir\themes\xpander.json" `
 	).replace('"hg", "ssh"', '"prompt_pwd"' `
 	).replace('" $"', '"`n$([char]0x3BB)"' `
@@ -52,4 +54,4 @@ $ffprofiles = "$ENV:appdata\Mozilla\Firefox\Profiles"
 ls $ffprofiles | foreach {
 	copy firefox-user.js $ffprofiles\$_\user.js
 }
-firefox -setDefaultBrowser "https://accounts.firefox.com/signin?service=sync&context=fx_desktop_v3&entrypoint=menupanel"
+firefox -setDefaultBrowser "https://accounts.firefox.com/signin?service=sync"
