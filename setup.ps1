@@ -7,8 +7,10 @@ Set-ExecutionPolicy Bypass -scope CurrentUser
 [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
 $net = (New-Object System.Net.WebClient)
 
-# configure taskbar
-sudo reg import .\taskbar.reg
+# import registry changes
+ls -r reg *.reg | foreach { reg import $_.FullName }
+
+# restart explorer, to apply changes made in registry
 kill -ProcessName explorer -Force
 
 # install basic tools & apps
