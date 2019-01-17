@@ -15,12 +15,12 @@ $args | foreach {
 		}
 		Copy-Item -Path $font -Destination $sysfont -Force -Confirm:$false -PassThru > $null
 
-		$FontCollection.AddFontFile($font)
+		$FontCollection.AddFontFile($sysfont)
 
 		$RegistryValue = @{
 			Path = 'HKLM:\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Fonts'
 			Name = $FontCollection.Families[-1].Name
-			Value = $font.Fullname
+			Value = $sysfont.Name
 		}
 
 		New-ItemProperty -Fo @RegistryValue > $null
