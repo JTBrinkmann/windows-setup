@@ -43,21 +43,24 @@ $notepad_reg_key = "HKLM\Software\Microsoft\Windows NT\CurrentVersion\Image File
 sudo reg add $notepad_reg_key /v "Debugger" /t REG_SZ /d "`"$notepad2_path`" /z" /f
 
 # install SourceCode Pro (SauceCode-Pro-NF via scoop-nerd-fonts can't be applied to console)
-iwr "https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip" -O font.zip
+mkdir .\tmp
+pushd .\tmp
+iwr "https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip" -O .\font.zip
 7z e .\font.zip -ofont
-sudo .\install-fonts.ps1 ".\font\"
-#rm font.zip
+sudo ..\lib\install-fonts.ps1 ".\font\"
+popd .\tmp
+#rmdir -R -Fo .\tmp
 
 # style powershell
 ## use concfg to set the color scheme to use solarized-dark with Source-Code Pro font and long backlog
 concfg clean
-concfg import -n solarized-dark .\source-code-pro-semibold.json
+concfg import -n solarized-dark .\configs\source-code-pro-semibold.json
 concfg tokencolor disable
 
 ## prompt_pwd plugin to show short path names,
 ## e.g. "~\A\R\Mozilla" instead of C:\Users\username\AppData\Roaming\Mozilla
 $pshazzdir = "$((get-item (pshazz which default)).DirectoryName)\.."
-copy .\prompt_pwd.ps1 $pshazzdir\plugins\
+copy .\lib\prompt_pwd.ps1 $pshazzdir\plugins\
 
 
 ## customize prompt (use xpander but with prompt_pwd and start command in next line)
@@ -73,6 +76,6 @@ pshazz use xpander-lambda
 kill -ProcessName firefox -Force
 $ffprofiles = "$ENV:appdata\Mozilla\Firefox\Profiles"
 ls $ffprofiles | foreach {
-	copy firefox-user.js $ffprofiles\$_\user.js
+	copy .\configs\firefox-user.js $ffprofiles\$_\user.js
 }
 firefox -setDefaultBrowser "https://accounts.firefox.com/signin?service=sync"
