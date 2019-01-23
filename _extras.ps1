@@ -23,6 +23,15 @@ scoop install jetbrains-toolbox gitkraken gimp atom sharex vlc autohotkey typora
 # manually install whatever you need (e.g. Android Studio, IntelliJ, PHP-Storm)
 jetbrains-toolbox
 
+# add adb, fastboot, etc to path (installed with Android Studio, gets ignored if not installed)
+$adbPath = "$ENV:LocalAppData\Android\Sdk\platform-tools"
+[Environment]::SetEnvironmentVariable(
+    "Path",
+    "$([Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine));$adbPath",
+    [EnvironmentVariableTarget]::Machine
+)
+
+
 # install Unlocker (portable) and add it to Explorer's context menu
 reg add "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Unlocker.exe" /ve /t REG_SZ /d "$unlocker_path\Unlocker.exe"
 reg add "HKLM:\SYSTEM\CurrentControlSet\Services\UnlockerDriver5" /ve "ImagePath" /t REG_SZ /d "\??\$unlocker_path\UnlockerDriver5.sys"
