@@ -17,7 +17,7 @@ if (!$isAdmin) {
 scoop install imagemagick python python2 bat caddy cmder dos2unix ffmpeg jq php sed
 
 # extra GUI apps
-scoop install jetbrains-toolbox gitkraken gimp atom sharex vlc autohotkey typora
+scoop install jetbrains-toolbox gitkraken gimp atom sharex vlc autohotkey typora sqlitebrowser
 
 
 # manually install whatever you need (e.g. Android Studio, IntelliJ, PHP-Storm)
