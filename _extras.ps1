@@ -19,6 +19,7 @@ scoop install imagemagick python python2 bat caddy cmder dos2unix ffmpeg jq php 
 # extra GUI apps
 scoop install jetbrains-toolbox gitkraken gimp atom sharex vlc autohotkey typora sqlitebrowser
 
+npm install -g rebase-editor prettier spoof tldr fkill-cli
 
 # manually install whatever you need (e.g. Android Studio, IntelliJ, PHP-Storm)
 jetbrains-toolbox
