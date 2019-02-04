@@ -14,7 +14,7 @@ if (!$isAdmin) {
 }
 
 # extra commandline utils
-scoop install imagemagick python python2 bat caddy cmder dos2unix ffmpeg jq php sed
+scoop install imagemagick python bat caddy cmder dos2unix ffmpeg jq php sed nodejs
 
 # extra GUI apps
 scoop install jetbrains-toolbox gitkraken gimp atom sharex vlc autohotkey typora sqlitebrowser
