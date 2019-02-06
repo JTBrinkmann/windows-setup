@@ -4,11 +4,13 @@ if (!$isAdmin) { popd; exit 1 }
 
 # extra commandline utils
 scoop install imagemagick python bat caddy cmder dos2unix ffmpeg jq php sed nodejs
+npm install -g rebase-editor prettier spoof tldr fkill-cli
+
+# set rebase-editor as git sequencer
+git config --global sequence.editor rebase-editor
 
 # extra GUI apps
 scoop install jetbrains-toolbox gitkraken gimp atom sharex vlc autohotkey typora sqlitebrowser
-
-npm install -g rebase-editor prettier spoof tldr fkill-cli
 
 # manually install whatever you need (e.g. Android Studio, IntelliJ, PHP-Storm)
 jetbrains-toolbox
