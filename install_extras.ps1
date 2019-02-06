@@ -1,17 +1,6 @@
-$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-$isAdmin = $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-if (!$isAdmin) {
-	echo "This script must be run as administrator!"
-	
-	if (gcm "sudo" -ErrorAction SilentlyContinue) {
-		$confirmation = Read-Host "Do you want to run the script with elevated privileges? [Y/n] "
-		if ($confirmation -ne 'n') {
-		  sudo $MyInvocation.MyCommand.Source
-			exit 0
-		}
-	}
-	exit 1
-}
+pushd $PSScriptRoot
+.\lib\require_admin.ps1
+if (!$isAdmin) { popd; exit 1 }
 
 # extra commandline utils
 scoop install imagemagick python bat caddy cmder dos2unix ffmpeg jq php sed nodejs
@@ -48,3 +37,4 @@ reg add "HKLM\SOFTWARE\Classes\Folder\shellex\ContextMenuHandlers\UnlockerShellE
 iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
 choco feature enable -n allowGlobalConfirmation
 choco install mattermost-desktop resophnotes qttabbar unchecky
+popd

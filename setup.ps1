@@ -1,24 +1,15 @@
-if(($PSVersionTable.PSVersion.Major) -lt [System.Version]"5.1") {
+pushd $PSScriptRoot
+
+if($PSVersionTable.PSVersion -lt [System.Version]"5.1") {
 	echo "This script requires Powershell 5.1"
 	echo "currently running $($PSVersionTable.PSVersion)"
     echo "Upgrade PowerShell: https://docs.microsoft.com/en-us/powershell/scripting/setup/installing-windows-powershell"
     exit 1
 }
 
-$currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
-$isAdmin = $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-if (!$isAdmin) {
-	echo "This script must be run as administrator!"
-	
-	if (gcm "sudo" -ErrorAction SilentlyContinue) {
-		$confirmation = Read-Host "Do you want to run the script with elevated privileges? [Y/n] "
-		if ($confirmation -ne 'n') {
-		  sudo $MyInvocation.MyCommand.Source
-			exit 0
-		}
-	}
-	exit 1
-}
+.\lib\require_admin.ps1
+if (!$isAdmin) { popd; exit 1 }
+
 
 Set-ExecutionPolicy Bypass -scope CurrentUser
 
@@ -79,3 +70,5 @@ ls $ffprofiles | foreach {
 	copy .\configs\firefox-user.js $ffprofiles\$_\user.js
 }
 firefox -setDefaultBrowser "https://accounts.firefox.com/signin?service=sync"
+
+popd
