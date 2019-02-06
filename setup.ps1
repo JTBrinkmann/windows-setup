@@ -19,14 +19,13 @@ $net = (New-Object System.Net.WebClient)
 
 # import registry changes
 ls -r reg *.reg | foreach { reg import $_.FullName }
-
-# restart explorer, to apply changes made in registry
-kill -ProcessName explorer -Force
+kill -ProcessName explorer -Force # restart explorer, to apply changes made in registry
 
 # install basic tools & apps
-scoop install 7z git  # needed for buckets
+scoop updatescoop install 7z git  # needed for buckets
 scoop bucket add extras
 scoop install notepad2-mod firefox pshazz concfg
+cd $PSScriptRoot # fix scoop sometimes changing the directory when updating
 
 # replace notepad with notepad2-mod
 $notepad2_path = join-path (gcm notepad2.ps1 | gi).DirectoryName "..\apps\notepad2-mod\current\Notepad2.exe"
