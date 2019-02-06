@@ -22,6 +22,7 @@ ls -r reg *.reg | foreach { reg import $_.FullName }
 kill -ProcessName explorer -Force # restart explorer, to apply changes made in registry
 
 # install basic tools & apps
+scoop install aria2 # for faster scoop downloads
 scoop install 7z git  # needed for buckets
 scoop bucket add extras
 scoop install notepad2-mod firefox pshazz concfg
