@@ -1,0 +1,30 @@
+Windows Registry Editor Version 5.00
+
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Unlocker.exe]
+@="$unlocker_path\\Unlocker.exe"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\App Paths\Unlocker.exe]
+@="$unlocker_path\\Unlocker.exe"
+
+[HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\UnlockerDriver5]
+"ImagePath"="\\??\\$unlocker_path\\UnlockerDriver5.sys"
+"Type"=dword:00000001
+
+[HKEY_CLASSES_ROOT\CLSID\UnlockerShellExtension]
+@="{DDE4BEEB-DDE6-48fd-8EB5-035C09923F83}"
+
+[HKEY_CLASSES_ROOT\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\UnlockerShellExtension]
+@="{DDE4BEEB-DDE6-48fd-8EB5-035C09923F83}"
+
+[HKEY_CLASSES_ROOT\SOFTWARE\Classes\Folder\shellex\ContextMenuHandlers\UnlockerShellExtension]
+@="{DDE4BEEB-DDE6-48fd-8EB5-035C09923F83}"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\UnlockerShellExtension]
+@="{DDE4BEEB-DDE6-48fd-8EB5-035C09923F83}"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\CLSID\UnlockerShellExtension]
+@="{DDE4BEEB-DDE6-48fd-8EB5-035C09923F83}"
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Classes\Folder\shellex\ContextMenuHandlers\UnlockerShellExtension]
+@="{DDE4BEEB-DDE6-48fd-8EB5-035C09923F83}"

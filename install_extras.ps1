@@ -29,14 +29,10 @@ $adbPath = "$ENV:LocalAppData\Android\Sdk\platform-tools"
 
 
 # install Unlocker (portable) and add it to Explorer's context menu
-reg add "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\App Paths\Unlocker.exe" /ve /t REG_SZ /d "$unlocker_path\Unlocker.exe"
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\UnlockerDriver5" /ve "ImagePath" /t REG_SZ /d "\??\$unlocker_path\UnlockerDriver5.sys"
-reg add "HKLM\SYSTEM\CurrentControlSet\Services\UnlockerDriver5" /ve "Type" /t REG_SZ /d dword:00000001
-reg add "HKLM\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\UnlockerShellExtension" /ve /t REG_SZ /d "{DDE4BEEB-DDE6-48fd-8EB5-035C09923F83}"
-reg add "HKLM\SOFTWARE\Classes\Folder\shellex\ContextMenuHandlers\UnlockerShellExtension" /ve /t REG_SZ /d "{DDE4BEEB-DDE6-48fd-8EB5-035C09923F83}"
-reg add "HKLM\SOFTWARE\Classes\AllFilesystemObjects\shellex\ContextMenuHandlers\UnlockerShellExtension" /ve /t REG_SZ /d "{DDE4BEEB-DDE6-48fd-8EB5-035C09923F83}"
-reg add "HKLM\SOFTWARE\Classes\Folder\shellex\ContextMenuHandlers\UnlockerShellExtension" /ve /t REG_SZ /d "{DDE4BEEB-DDE6-48fd-8EB5-035C09923F83}"
-
+$unlocker_path = (gi "~\scoop\apps\unlocker\current").FullName -Replace '\\', "\\"
+(gc .\reg_extras\unlocker.reg.template -raw) -replace '\$unlocker_path', "$unlocker_path" | Out-File -Encoding "UTF8" .\reg_extras\unlocker.reg
+ls -r reg_extras *.reg | foreach { reg import $_.FullName }
+rm reg_extras\unlocker.reg
 
 
 # install more programs using Chocolatey
