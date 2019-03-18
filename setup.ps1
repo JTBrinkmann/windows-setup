@@ -37,7 +37,7 @@ sudo reg add $notepad_reg_key /v "Debugger" /t REG_SZ /d "`"$notepad2_path`" /z"
 mkdir .\tmp
 pushd .\tmp
 iwr "https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip" -O .\font.zip
-7z e .\font.zip -ofont
+7z e -ofont .\font.zip
 sudo ..\lib\install-fonts.ps1 ".\font\"
 popd .\tmp
 #rmdir -R -Fo .\tmp
@@ -56,12 +56,8 @@ copy .\lib\prompt_pwd.ps1 $pshazzdir\plugins\
 
 ## customize prompt (use xpander but with prompt_pwd and start command in next line)
 ## (also remove plugins for hg and ssh for faster loadtime)
-(cat "$pshazzdir\themes\xpander.json" `
-	).replace('"hg", "ssh"', '"prompt_pwd"' `
-	).replace('" $"', '"`n$([char]0x3BB)"' `
-	) > "$pshazzdir\themes\xpander-lambda.json"
-	# ).replace('["", "", " $"]', '["White", "Blue", "`n$([char]0x3BB)"],["Blue", "Black", "$rightarrow"]' `
-pshazz use xpander-lambda
+pshazz get https://raw.github.com/JTBrinkmann/windows-setup/master/configs/xpander-lambda.json
+if ($?) { pshazz use xpander-lambda }
 
 # configure firefox
 kill -ProcessName firefox -Force
