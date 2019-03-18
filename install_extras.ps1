@@ -6,6 +6,10 @@ if (!$isAdmin) { popd; exit 1 }
 scoop install imagemagick python bat caddy cmder dos2unix ffmpeg jq php sed nodejs
 npm install -g rebase-editor prettier spoof tldr fkill-cli
 
+# install more programs using Pip
+pip install --upgrade pip
+pip install --upgrade youtube-dl
+
 # set rebase-editor as git sequencer
 git config --global sequence.editor rebase-editor
 
