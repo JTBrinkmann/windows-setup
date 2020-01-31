@@ -47,3 +47,10 @@ iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/in
 choco feature enable -n allowGlobalConfirmation
 choco install mattermost-desktop resophnotes qttabbar unchecky
 popd
+
+# install Powershell 6+
+#iex "& { $(irm https://aka.ms/install-powershell.ps1) } -Quiet -UseMSI -AddToPath ADD_EXPLORER_CONTEXT_MENU_OPENPOWERSHELL=1 ENABLE_PSREMOTING=0 REGISTER_MANIFEST=1"
+
+
+echo ""
+echo "done!"
