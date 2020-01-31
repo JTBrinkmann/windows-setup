@@ -1,6 +1,6 @@
 pushd $PSScriptRoot
 .\lib\require_admin.ps1
-if (!$isAdmin) { popd; exit 1 }
+if (!$ENV:isAdmin) { popd; echo "exit"; exit 1 }
 
 # extra commandline utils
 scoop install imagemagick python bat caddy cmder dos2unix ffmpeg jq php sed nodejs

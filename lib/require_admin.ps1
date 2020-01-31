@@ -1,6 +1,7 @@
 $currentPrincipal = New-Object Security.Principal.WindowsPrincipal([Security.Principal.WindowsIdentity]::GetCurrent())
 $isAdmin = $currentPrincipal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 if (!$isAdmin) {
+    $ENV:isAdmin = ""
 	echo "This script must be run as administrator!"
 	
 	if (gcm "sudo" -ErrorAction SilentlyContinue) {
@@ -11,4 +12,6 @@ if (!$isAdmin) {
 		}
 	}
 	exit 1
+} else {
+    $ENV:isAdmin = $true
 }

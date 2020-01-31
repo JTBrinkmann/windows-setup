@@ -8,7 +8,7 @@ if($PSVersionTable.PSVersion -lt [System.Version]"5.1") {
 }
 
 .\lib\require_admin.ps1
-if (!$isAdmin) { popd; exit 1 }
+if (!$ENV:isAdmin) { popd; exit 1 }
 
 
 Set-ExecutionPolicy Bypass -scope CurrentUser
