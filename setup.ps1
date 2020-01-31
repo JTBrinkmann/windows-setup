@@ -39,8 +39,8 @@ pushd .\tmp
 iwr "https://github.com/adobe-fonts/source-code-pro/archive/2.030R-ro/1.050R-it.zip" -O .\font.zip
 7z e -ofont .\font.zip
 sudo ..\lib\install-fonts.ps1 ".\font\"
-popd .\tmp
-#rmdir -R -Fo .\tmp
+popd
+rmdir -R -Fo .\tmp
 
 # style powershell
 ## use concfg to set the color scheme to use solarized-dark with Source-Code Pro font and long backlog
