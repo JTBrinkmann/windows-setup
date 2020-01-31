@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows NT\CurrentVersion\Image File Execution Options\notepad.exe]
+"Debugger"="C:\\Users\\jan.brinkmann\\scoop\\apps\\notepad2-mod\\current\\Notepad2.exe /z"
+
