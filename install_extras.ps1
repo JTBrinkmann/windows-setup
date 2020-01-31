@@ -30,7 +30,14 @@ $adbPath = "$ENV:LocalAppData\Android\Sdk\platform-tools"
 
 # install Unlocker (portable) and add it to Explorer's context menu
 $unlocker_path = (gi "~\scoop\apps\unlocker\current").FullName -Replace '\\', "\\"
-(gc .\reg_extras\unlocker.reg.template -raw) -replace '\$unlocker_path', "$unlocker_path" | Out-File -Encoding "UTF8" .\reg_extras\unlocker.reg
+
+# file must be written without UTF-8 BOM, so we need to use [IO.File] & fix relative path bug
+# https://stackoverflow.com/questions/5596982/using-powershell-to-write-a-file-in-utf-8-without-the-bom#comment79966549_5596984
+[System.Environment]::CurrentDirectory = (Get-Location).Path
+[IO.File]::WriteAllLines(".\reg_extras\unlocker.reg", (
+    (gc .\reg_extras\unlocker.reg.template -raw) -replace '\$unlocker_path', "$unlocker_path"
+))
+
 ls -r reg_extras *.reg | foreach { reg import $_.FullName }
 rm reg_extras\unlocker.reg
 
