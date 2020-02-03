@@ -19,6 +19,10 @@ scoop install jetbrains-toolbox gitkraken gimp atom sharex vlc autohotkey typora
 # manually install whatever you need (e.g. Android Studio, IntelliJ, PHP-Storm)
 jetbrains-toolbox
 
+# install chocolatey
+iwr -useb chocolatey.org/install.ps1 | iex
+choco feature enable -n allowGlobalConfirmation
+
 # add adb, fastboot, etc to path (installed with Android Studio, gets ignored if not installed)
 $adbPath = "$ENV:LocalAppData\Android\Sdk\platform-tools"
 [Environment]::SetEnvironmentVariable(
