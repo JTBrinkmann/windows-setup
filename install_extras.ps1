@@ -19,10 +19,6 @@ scoop install jetbrains-toolbox gitkraken gimp atom sharex vlc autohotkey typora
 # manually install whatever you need (e.g. Android Studio, IntelliJ, PHP-Storm)
 jetbrains-toolbox
 
-# install chocolatey
-iwr -useb chocolatey.org/install.ps1 | iex
-choco feature enable -n allowGlobalConfirmation
-
 # add adb, fastboot, etc to path (installed with Android Studio, gets ignored if not installed)
 $adbPath = "$ENV:LocalAppData\Android\Sdk\platform-tools"
 [Environment]::SetEnvironmentVariable(
@@ -30,7 +26,6 @@ $adbPath = "$ENV:LocalAppData\Android\Sdk\platform-tools"
     "$([Environment]::GetEnvironmentVariable('Path', [EnvironmentVariableTarget]::Machine));$adbPath",
     [EnvironmentVariableTarget]::Machine
 )
-
 
 # install Unlocker (portable) and add it to Explorer's context menu
 $unlocker_path = (gi "~\scoop\apps\unlocker\current").FullName -Replace '\\', "\\"
@@ -47,7 +42,9 @@ rm reg_extras\unlocker.reg
 
 
 # install more programs using Chocolatey
-iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+gcm choco -ErrorAction=Ignore | Out-Null; if (!$?) {
+    iwr -useb chocolatey.org/install.ps1 | iex
+}
 choco feature enable -n allowGlobalConfirmation
 choco install mattermost-desktop resophnotes qttabbar unchecky
 popd
