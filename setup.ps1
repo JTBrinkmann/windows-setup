@@ -64,7 +64,14 @@ copy .\lib\prompt_pwd.ps1 $pshazzdir\plugins\
 pshazz get https://raw.github.com/JTBrinkmann/windows-setup/master/configs/xpander-lambda.json
 if ($?) { pshazz use xpander-lambda }
 
-# configure firefox
+
+# install Firefox
+gcm firefox -ErrorAction Ignore | Out-Null; if (!$?) {
+    iwr -O FirefoxSetup.exe "https://download.mozilla.org/?product=firefox-latest&os=win64"
+    .\FirefoxSetup.exe /S /DesktopShortcut=false
+}
+
+# configure Firefox
 kill -ProcessName firefox -Force
 $ffprofiles = "$ENV:appdata\Mozilla\Firefox\Profiles"
 ls $ffprofiles | foreach {
