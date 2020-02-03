@@ -1,8 +1,8 @@
 pushd $PSScriptRoot
 
 if($PSVersionTable.PSVersion -lt [System.Version]"5.1") {
-	echo "This script requires Powershell 5.1"
-	echo "currently running $($PSVersionTable.PSVersion)"
+    echo "This script requires Powershell 5.1"
+    echo "currently running $($PSVersionTable.PSVersion)"
     echo "Upgrade PowerShell: https://docs.microsoft.com/en-us/powershell/scripting/setup/installing-windows-powershell"
     exit 1
 }
@@ -21,11 +21,16 @@ $net = (New-Object System.Net.WebClient)
 ls -r reg *.reg | foreach { reg import $_.FullName }
 kill -ProcessName explorer -Force # restart explorer, to apply changes made in registry
 
+
 # install basic tools & apps
+gcm scoop -ErrorAction Ignore | Out-Null; if (!$?) {
+    # first install scoop
+    iwr -useb get.scoop.sh | iex
+}
 scoop install aria2 # for faster scoop downloads
-scoop install 7z git  # needed for buckets
+scoop install 7zip git  # needed for buckets
 scoop bucket add extras
-scoop install notepad2-mod firefox pshazz concfg
+scoop install notepad2-mod pshazz concfg
 cd $PSScriptRoot # fix scoop sometimes changing the directory when updating
 
 # replace notepad with notepad2-mod
@@ -63,7 +68,7 @@ if ($?) { pshazz use xpander-lambda }
 kill -ProcessName firefox -Force
 $ffprofiles = "$ENV:appdata\Mozilla\Firefox\Profiles"
 ls $ffprofiles | foreach {
-	copy .\configs\firefox-user.js $ffprofiles\$_\user.js
+    copy .\configs\firefox-user.js $ffprofiles\$_\user.js
 }
 firefox -setDefaultBrowser "https://accounts.firefox.com/signin?service=sync"
 
