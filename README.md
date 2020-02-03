@@ -4,6 +4,7 @@ This script will automatically set up a Windows profile to my personal, opiniona
 ## Standard Installation
 ### Apps
 The following apps will be installed
+
 **GUI:**
 - [7zip](https://www.7-zip.org/)
 - [notepad2-mod](https://github.com/XhmikosR/notepad2-mod)
@@ -28,7 +29,7 @@ The following apps will be installed
     - modified to abbreviate the current path (e.g. `~\A\R\Mozilla` instead of `C:\Users\username\AppData\Roaming\Mozilla`)
   - font changed to Source Code Pro (to enable Powerline)
 
-![prompt-preview](C:\Users\jan.brinkmann\Desktop\setup\prompt-preview.png)
+![prompt-preview](prompt-preview.png)
 
 
 
