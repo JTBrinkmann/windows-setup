@@ -17,13 +17,20 @@ Set-ExecutionPolicy Bypass -scope CurrentUser
 [Net.ServicePointManager]::SecurityProtocol = "tls12, tls11, tls"
 $net = (New-Object System.Net.WebClient)
 
+
+# unhide AppData folder
+Get-Item -Force ~\AppData | Foreach-Object {
+    $_.Attributes = $_.Attributes -band(-bnot [System.IO.FileAttributes]::Hidden)
+}
+
+
 # import registry changes
-ls -r reg *.reg | foreach { reg import $_.FullName }
+ls -r reg *.reg | Foreach-Object { reg import $_.FullName }
 kill -ProcessName explorer -Force # restart explorer, to apply changes made in registry
 
 
 # install basic tools & apps
-gcm scoop -ErrorAction Ignore | Out-Null; if (!$?) {
+if ($null -ne (gcm scoop -ErrorAction SilentlyContinue)) {
     # first install scoop
     iwr -useb get.scoop.sh | iex
 }
