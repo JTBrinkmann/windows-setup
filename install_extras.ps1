@@ -2,6 +2,9 @@ pushd $PSScriptRoot
 .\lib\require_admin.ps1
 if (!$ENV:isAdmin) { popd; echo "exit"; exit 1 }
 
+# disable .NET SDK telemetry
+[Environment]::SetEnvironmentVariable("DOTNET_CLI_TELEMETRY_OPTOUT", 1, [EnvironmentVariableTarget]::Machine)
+
 # extra commandline utils
 scoop install imagemagick python bat caddy cmder dos2unix ffmpeg jq php sed nodejs
 npm install -g rebase-editor prettier spoof tldr fkill-cli
@@ -55,3 +58,4 @@ popd
 
 echo ""
 echo "done!"
+
